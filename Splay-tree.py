@@ -1,8 +1,4 @@
 from sys import stdin
-
-# Splay tree implementation
-
-# Vertex of a splay tree
 class Vertex:
 	def __init__(self, key, sum, left, right, parent):
 		(self.key, self.sum, self.left, self.right, self.parent) = (key, sum, left, right, parent)
@@ -40,20 +36,14 @@ def smallRotation(v):
 
 def bigRotation(v):
 	if v.parent.left == v and v.parent.parent.left == v.parent:
-		# Zig-zig
 		smallRotation(v.parent)
 		smallRotation(v)
 	elif v.parent.right == v and v.parent.parent.right == v.parent:
-		# Zig-zig
 		smallRotation(v.parent)
 		smallRotation(v)    
 	else: 
-		# Zig-zag
 		smallRotation(v)
 		smallRotation(v)
-
-# Makes splay of the given vertex and makes
-# it the new root.
 def splay(v):
 	if v == None:
 		return None
@@ -64,14 +54,6 @@ def splay(v):
 		bigRotation(v)
 	return v
 
-# Searches for the given key in the tree with the given root
-# and calls splay for the deepest visited node after that.
-# Returns pair of the result and the new root.
-# If found, result is a pointer to the node with the given key.
-# Otherwise, result is a pointer to the node with the smallest
-# bigger key (next value in the order).
-# If the key is bigger than all keys in the tree,
-# then result is None.
 def find(root, key): 
 	v = root
 	last = root
@@ -116,7 +98,7 @@ def merge(left, right):
 	return right
 
 	
-# Code that uses splay tree to solve the problem
+
 																		
 root = None
 
@@ -130,15 +112,13 @@ def insert(x):
 	
 def erase(x): 
 	global root
-	# Implement erase yourself
 	(left, right) = split(root, x)
-	(middle, right) = split(right, x + 1)
+        (middle, right) = split(right, x + 1)
 	root = merge(left, right)
 
 
 def search(x): 
 	global root
-	# Implement find yourself
 	result, root = find(root, x)
 	if result is None or result.key != x:
 		return False
@@ -149,7 +129,6 @@ def sum(fr, to):
 	(left, middle) = split(root, fr)
 	(middle, right) = split(middle, to + 1)
 	ans = 0
-	# Complete the implementation of sum
 	if middle is None:
 		ans = 0
 		root = merge(left, right)
